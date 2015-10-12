@@ -1,4 +1,4 @@
-package com.calm.calm.ui.dialo;
+package com.calm.calm.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

@@ -11,7 +11,7 @@ import android.widget.Toast;
 import cn.bmob.v3.Bmob;
 
 import com.calm.calm.net.InitNet;
-import com.calm.calm.ui.dialo.CustomDialog;
+import com.calm.calm.ui.dialog.CustomDialog;
 import com.calm.calm.util.AppInfoUtil;
 import com.calm.calm.util.SysConfig;
 import com.calm.calm.util.constant.BaseConstant;
