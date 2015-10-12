@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
+import com.bocommlife.healthywalk.entity.SysAlarm;
 import com.calm.calm.entity.AppVersionCode;
 import com.calm.calm.entity.UsrInfo;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -79,6 +80,20 @@ public class DataHelper extends OrmLiteSqliteOpenHelper{
 	public void onUpgrade(SQLiteDatabase arg0, ConnectionSource arg1, int arg2,
 			int arg3) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Dao<UsrInfo, Integer> getUsrInfoDao(){
+		Dao<UsrInfo, Integer> accountDao = daoMaps.get("usr_info");
+		if (accountDao == null) {
+			try {
+				accountDao = getDao(UsrInfo.class);
+			} catch (SQLException e) {
+			}
+		}
+		return accountDao;
+		return null;
 		
 	}
 
