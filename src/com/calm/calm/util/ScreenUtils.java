@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.WindowManager;
 
 /**
- * 鑾峰緱灞忓箷鐩稿叧鐨勮緟鍔╃被
+ * 获得屏幕相关的辅助类
  * 
- * @author zhy
+ * @author wuyue
  * 
  */
 public class ScreenUtils
@@ -23,7 +23,7 @@ public class ScreenUtils
 	}
 
 	/**
-	 * 鑾峰緱灞忓箷楂樺害
+	 * 获得屏幕高度
 	 * 
 	 * @param context
 	 * @return
@@ -38,7 +38,7 @@ public class ScreenUtils
 	}
 
 	/**
-	 * 鑾峰緱灞忓箷瀹藉害
+	 * 获得屏幕宽度
 	 * 
 	 * @param context
 	 * @return
@@ -53,7 +53,7 @@ public class ScreenUtils
 	}
 
 	/**
-	 * 鑾峰緱鐘舵?鏍忕殑楂樺害
+	 * 获得状态栏的高度
 	 * 
 	 * @param context
 	 * @return
@@ -77,7 +77,7 @@ public class ScreenUtils
 	}
 
 	/**
-	 * 鑾峰彇褰撳墠灞忓箷鎴浘锛屽寘鍚姸鎬佹爮
+	 * 获取当前屏幕截图，包含状态栏
 	 * 
 	 * @param activity
 	 * @return
@@ -98,7 +98,7 @@ public class ScreenUtils
 	}
 
 	/**
-	 * 鑾峰彇褰撳墠灞忓箷鎴浘锛屼笉鍖呭惈鐘舵?鏍?
+	 * 获取当前屏幕截图，不包含状态栏
 	 * 
 	 * @param activity
 	 * @return
