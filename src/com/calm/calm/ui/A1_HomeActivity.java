@@ -1,5 +1,7 @@
 package com.calm.calm.ui;
 
-public class A1_HomeActivity {
+import com.calm.calm.base.BaseActivity;
+
+public class A1_HomeActivity extends BaseActivity{
 
 }

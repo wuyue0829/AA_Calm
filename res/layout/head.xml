@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="@color/head_back"
+    android:orientation="vertical" >
+
+    <!-- 头部文件 -->
+
+    <LinearLayout
+        android:id="@+id/l_left"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/b_left"
+            style="@style/TextTitleLittle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back_left" />
+
+        <TextView
+            android:id="@+id/tv_left"
+            style="@style/TextTitleLittle"
+            android:layout_marginLeft="5dp"
+            android:text="@string/base_return" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/l_left2"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical" >
+
+        <ImageButton
+            android:id="@+id/b_left2"
+            android:layout_width="12dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/back_left" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_head_title"
+        style="@style/Text18White"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/head_title" />
+
+    <!-- 右边的各种按钮 -->
+
+    <LinearLayout
+        android:id="@+id/l_right"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/b_right"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/button_nav10"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            style="@style/Text18White"
+            android:text="@string/head_submit" />
+
+        <Button
+            android:id="@+id/b_right3"
+            style="@style/TextTitleLittle"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/jxtx_synav04" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/l_right2"
+        android:layout_height="match_parent"
+        android:layout_width="80dp"
+        android:layout_alignParentRight="true"
+        android:gravity="right|center" >
+
+        <ImageButton
+            android:id="@+id/b_right2"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:src="@drawable/jxtx_synav05" />
+    </LinearLayout>
+
+</RelativeLayout>

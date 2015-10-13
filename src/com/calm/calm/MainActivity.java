@@ -3,6 +3,8 @@ package com.calm.calm;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +14,7 @@ import cn.bmob.v3.Bmob;
 
 import com.calm.calm.bll.BllUsrInfo;
 import com.calm.calm.net.InitNet;
+import com.calm.calm.ui.A1_HomeActivity;
 import com.calm.calm.ui.dialog.CustomDialog;
 import com.calm.calm.util.AppInfoUtil;
 import com.calm.calm.util.SysConfig;
@@ -29,6 +32,7 @@ public class MainActivity extends Activity {
 	private static final int WELCOME =20000;
 	private static final int HAVENEW =30000;
 	private static final int SLEEP = 3000;
+	private static final int WEBVIEW = 4000;
 	private CustomDialog dialog;
 	private Context mContext ;
 	private Handler handler = null;
@@ -53,13 +57,23 @@ public class MainActivity extends Activity {
 				switch (msg.what) {
 				case DONE:
 					Toast.makeText(mContext, "进入界面", 1).show();
+					Intent intent = new Intent(mContext, A1_HomeActivity.class);
+					startActivity(intent);
+					goNext();
 					break;
 				case WELCOME:
 					Toast.makeText(mContext, "欢迎界面", 1).show();
 					
+					goNext();
 					break;
 				case HAVENEW:
 					showDialog();
+					break;
+				case WEBVIEW:
+					Uri uri = Uri.parse("http://www.baidu.com");
+					Intent it = new Intent(Intent.ACTION_VIEW, uri);
+					startActivity(it);
+					goNext();
 				default:
 					break;
 				}
@@ -89,7 +103,13 @@ public class MainActivity extends Activity {
 					msg.what = HAVENEW;
 				}else{
 					//作是不是第一次登陆的判断
-					msg.what = DONE;
+					String isfirstlogin = sysConfig.getCustomConfig("isfirstlogin", "0");
+					if(isfirstlogin.equals("0")){
+						sysConfig.setCustomConfig("isfirstlogin", "1");
+						msg.what = WELCOME;
+					}else{
+						msg.what = DONE;	
+					}
 				}
 				//记录结束的时间
 				long now2 = SystemClock.elapsedRealtime();  //当前时间2
@@ -109,6 +129,7 @@ public class MainActivity extends Activity {
 	};
 	
 	public void showDialog(){
+		
 		CustomDialog.Builder customBuilder = new
                 CustomDialog.Builder(MainActivity.this);
             customBuilder.setTitle("提示")
@@ -117,17 +138,23 @@ public class MainActivity extends Activity {
                 		new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     	dialog.dismiss();
-                    	Toast.makeText(mContext, "进入主界面", 1).show();
+                    	Message message = handler.obtainMessage();
+                    	message.what = DONE;
                     }
                 })
                 .setPositiveButton("确定", 
                         new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     	dialog.dismiss();
-                    	Toast.makeText(mContext, "前往一个地址", 1).show();
+                    	Message message = handler.obtainMessage();
+                    	message.what = WEBVIEW;
+                    	handler.sendMessage(message);
                     }
                 });
             dialog = customBuilder.create();
             dialog.show();
+	}
+	private void goNext() {
+		this.finish();
 	}
 }

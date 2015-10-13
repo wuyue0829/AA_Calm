@@ -15,4 +15,9 @@
 		<color name="bbutton_info_pressed_edge">#ff269abc</color>
 		<color name="bbutton_info_disabled">#a55bc0de</color>
 		<color name="bbutton_info_disabled_edge">#a546b8da</color>
+		
+		
+		<color name="head_back">#000000</color>
+		<color name="white">#FFFFFF</color>
+		
     </resources>

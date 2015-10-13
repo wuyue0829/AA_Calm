@@ -4,4 +4,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 	<dimen name="bbuton_rounded_corner_radius">5dp</dimen>
+	<dimen name="little">16sp</dimen>
+	<dimen name="small">18sp</dimen>
 </resources>
