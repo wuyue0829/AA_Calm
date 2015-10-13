@@ -10,6 +10,7 @@ import android.os.SystemClock;
 import android.widget.Toast;
 import cn.bmob.v3.Bmob;
 
+import com.calm.calm.bll.BllUsrInfo;
 import com.calm.calm.net.InitNet;
 import com.calm.calm.ui.dialog.CustomDialog;
 import com.calm.calm.util.AppInfoUtil;
@@ -32,6 +33,7 @@ public class MainActivity extends Activity {
 	private Context mContext ;
 	private Handler handler = null;
 	private SysConfig sysConfig;
+	private BllUsrInfo bllUsrInfo = null;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -96,6 +98,7 @@ public class MainActivity extends Activity {
 				if(now2-now1 < SLEEP){
 					Thread.sleep(SLEEP-(now2-now1));
 				}
+				
 				//·¢ËÍÏûÏ¢
 				handler.sendMessage(msg);
 			} catch (InterruptedException e) {

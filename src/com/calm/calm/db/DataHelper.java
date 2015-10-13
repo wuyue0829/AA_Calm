@@ -8,9 +8,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
-import com.bocommlife.healthywalk.entity.SysAlarm;
-import com.calm.calm.entity.AppVersionCode;
+import com.calm.calm.entity.UsrCache;
 import com.calm.calm.entity.UsrInfo;
+import com.calm.calm.util.LogUtil;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -18,7 +18,7 @@ import com.j256.ormlite.table.TableUtils;
 
 public class DataHelper extends OrmLiteSqliteOpenHelper{
 
-	public static final String DATABASE_NAME = "AA_base";
+	public static final String DATABASE_NAME = "yy";
 	public static final int DATABASE_VERSION = 1;
 	
 	public static DataHelper staticDB;
@@ -56,17 +56,21 @@ public class DataHelper extends OrmLiteSqliteOpenHelper{
 	private void initDaoMaps() {
 		// TODO Auto-generated method stub
 		daoMaps = new HashMap<String, Dao>();
-		daoMaps.put("", null);
+		daoMaps.put("usrCache", null);  //用户缓存表
+		daoMaps.put("usrInfo", null);  //用户信息表
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db, ConnectionSource arg1) {
 		// TODO Auto-generated method stub
 		try {
+			LogUtil.e("见表", "success");
 			TableUtils.createTable(arg1, UsrInfo.class);
+			TableUtils.clearTable(arg1, UsrCache.class);
 			initData(db);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			LogUtil.e("见表", "失败");
 			e.printStackTrace();
 		}
 	}
@@ -93,8 +97,19 @@ public class DataHelper extends OrmLiteSqliteOpenHelper{
 			}
 		}
 		return accountDao;
-		return null;
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Dao<UsrCache, Integer> getUsrCache(){
+		Dao<UsrCache, Integer> accountDao = daoMaps.get("usr_cache");
+		if (accountDao == null) {
+			try {
+				accountDao = getDao(UsrCache.class);
+			} catch (SQLException e) {
+			}
+		}
+		return accountDao;
 	}
 
 }
