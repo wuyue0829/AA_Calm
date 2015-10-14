@@ -39,7 +39,6 @@ public class SlidingMenu extends HorizontalScrollView
 	public SlidingMenu(Context context, AttributeSet attrs)
 	{
 		this(context, attrs, 0);
-
 	}
 
 	public SlidingMenu(Context context, AttributeSet attrs, int defStyle)
