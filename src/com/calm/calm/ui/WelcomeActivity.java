@@ -96,7 +96,7 @@ public class WelcomeActivity extends Activity{
 					@Override
 					public void onClick(View v) {
 						//最后一个了跳转了
-						startActivity(new Intent(context, A1_HomeActivity.class));
+						startActivity(new Intent(context, LoginActivity.class));
 						WelcomeActivity.this.finish();
 					}
 				});

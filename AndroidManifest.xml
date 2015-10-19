@@ -27,15 +27,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-         <!-- 首界面 -->
+        <!-- 首界面 -->
         <activity
             android:name=".ui.A1_HomeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <!-- 个人 -->
-         <!-- 欢迎界面-->
+        <!-- 欢迎界面 -->
         <activity
             android:name=".ui.WelcomeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <!-- 欢迎界面 -->
+        <activity
+            android:name=".ui.LoginActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
     </application>

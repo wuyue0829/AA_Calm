@@ -16,6 +16,7 @@ import cn.bmob.v3.Bmob;
 import com.calm.calm.bll.BllUsrInfo;
 import com.calm.calm.net.InitNet;
 import com.calm.calm.ui.A1_HomeActivity;
+import com.calm.calm.ui.LoginActivity;
 import com.calm.calm.ui.WelcomeActivity;
 import com.calm.calm.ui.dialog.CustomDialog;
 import com.calm.calm.util.AppInfoUtil;
@@ -58,7 +59,7 @@ public class MainActivity extends Activity {
 				// TODO Auto-generated method stub
 				switch (msg.what) {
 				case DONE:
-					Intent intent = new Intent(mContext, A1_HomeActivity.class);
+					Intent intent = new Intent(mContext, LoginActivity.class);
 					startActivity(intent);
 					goNext();
 					break;

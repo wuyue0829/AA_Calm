@@ -7,9 +7,10 @@
     <string name="line">line</string>
     
     
+    
     <string name="base_return">返回</string>
     <string name="head_title">App名字</string>
     <string name="head_submit">确定</string>
-    
+    <string name="photo">头像</string>
 
 </resources>
