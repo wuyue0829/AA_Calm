@@ -9,12 +9,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.widget.Toast;
 import cn.bmob.v3.Bmob;
 
 import com.calm.calm.bll.BllUsrInfo;
 import com.calm.calm.net.InitNet;
 import com.calm.calm.ui.A1_HomeActivity;
+import com.calm.calm.ui.WelcomeActivity;
 import com.calm.calm.ui.dialog.CustomDialog;
 import com.calm.calm.util.AppInfoUtil;
 import com.calm.calm.util.SysConfig;
@@ -56,18 +58,17 @@ public class MainActivity extends Activity {
 				// TODO Auto-generated method stub
 				switch (msg.what) {
 				case DONE:
-					Toast.makeText(mContext, "进入界面", 1).show();
 					Intent intent = new Intent(mContext, A1_HomeActivity.class);
 					startActivity(intent);
 					goNext();
 					break;
 				case WELCOME:
-					Toast.makeText(mContext, "欢迎界面", 1).show();
-					
+					startActivity(new Intent(mContext, WelcomeActivity.class));
 					goNext();
 					break;
 				case HAVENEW:
 					showDialog();
+					goNext();
 					break;
 				case WEBVIEW:
 					Uri uri = Uri.parse("http://www.baidu.com");
@@ -91,6 +92,13 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			Message msg  = handler.obtainMessage();
 			try {
+				//保存屏幕的分辨率
+				DisplayMetrics metric = new DisplayMetrics();
+				getWindowManager().getDefaultDisplay().getMetrics(metric);
+				SysConfig sysConfig = new SysConfig(mContext);
+				sysConfig.setScreenWidth(metric.widthPixels);
+				
+				
 				//记录开始执行的时间
 				long now1 = SystemClock.elapsedRealtime();  //当前时间1
 				//从服务器获取最新版本的版本号，保存到shareperferce
