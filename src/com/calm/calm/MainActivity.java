@@ -68,7 +68,6 @@ public class MainActivity extends Activity {
 					break;
 				case HAVENEW:
 					showDialog();
-					goNext();
 					break;
 				case WEBVIEW:
 					Uri uri = Uri.parse("http://www.baidu.com");
@@ -148,6 +147,7 @@ public class MainActivity extends Activity {
                     	dialog.dismiss();
                     	Message message = handler.obtainMessage();
                     	message.what = DONE;
+                    	handler.sendMessage(message);
                     }
                 })
                 .setPositiveButton("È·¶¨", 

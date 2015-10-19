@@ -61,8 +61,8 @@
 
         <Button
             android:id="@+id/positiveButton"
-            android:layout_width="50dip"
-            android:layout_height="wrap_content"
+            android:layout_width="0dip"
+            android:layout_height="40dp"
             android:background="@drawable/bbuton_info_rounded"
             android:textColor="@color/bg_white"
             android:layout_weight="1"
@@ -70,8 +70,8 @@
 
         <Button
             android:id="@+id/negativeButton"
-            android:layout_width="50dip"
-            android:layout_height="wrap_content"
+            android:layout_width="0dip"
+            android:layout_height="40dp"
             android:background="@drawable/bbuton_danger_rounded"
             android:layout_marginLeft="3dip"
             android:textColor="@color/bg_white"
