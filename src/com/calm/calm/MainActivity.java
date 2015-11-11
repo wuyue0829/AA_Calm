@@ -10,15 +10,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;
-import android.widget.Toast;
+import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobInstallation;
+import cn.bmob.v3.BmobUser;
 
 import com.calm.calm.bll.BllUsrInfo;
 import com.calm.calm.net.InitNet;
 import com.calm.calm.ui.A1_HomeActivity;
-import com.calm.calm.ui.LoginActivity;
 import com.calm.calm.ui.WelcomeActivity;
 import com.calm.calm.ui.dialog.CustomDialog;
+import com.calm.calm.ui.login.LoginActivity;
 import com.calm.calm.util.AppInfoUtil;
 import com.calm.calm.util.SysConfig;
 import com.calm.calm.util.constant.BaseConstant;
@@ -45,6 +47,8 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bmob.initialize(this, BaseConstant.BMOB_KEY);
+		BmobInstallation.getCurrentInstallation(this).save();
+		BmobPush.startWork(this,BaseConstant.BMOB_KEY);
 		setContentView(R.layout.activity_main);
 		mContext = this;
 		sysConfig = new SysConfig(mContext);
@@ -59,9 +63,16 @@ public class MainActivity extends Activity {
 				// TODO Auto-generated method stub
 				switch (msg.what) {
 				case DONE:
-					Intent intent = new Intent(mContext, LoginActivity.class);
-					startActivity(intent);
-					goNext();
+
+					if(isLogin()){
+						startActivity(new Intent(mContext, A1_HomeActivity.class));
+						goNext();	
+					}else{
+						startActivity(new Intent(mContext, A1_HomeActivity.class));
+//						Intent intent = new Intent(mContext, LoginActivity.class);
+//						startActivity(intent);
+						goNext();	
+					}
 					break;
 				case WELCOME:
 					startActivity(new Intent(mContext, WelcomeActivity.class));
@@ -97,8 +108,8 @@ public class MainActivity extends Activity {
 				getWindowManager().getDefaultDisplay().getMetrics(metric);
 				SysConfig sysConfig = new SysConfig(mContext);
 				sysConfig.setScreenWidth(metric.widthPixels);
-				
-				
+
+
 				//记录开始执行的时间
 				long now1 = SystemClock.elapsedRealtime();  //当前时间1
 				//从服务器获取最新版本的版本号，保存到shareperferce
@@ -121,12 +132,12 @@ public class MainActivity extends Activity {
 				}
 				//记录结束的时间
 				long now2 = SystemClock.elapsedRealtime();  //当前时间2
-				
+
 				//将线程睡够需要在第一个界面显示的时间
 				if(now2-now1 < SLEEP){
 					Thread.sleep(SLEEP-(now2-now1));
 				}
-				
+
 				//发送消息
 				handler.sendMessage(msg);
 			} catch (InterruptedException e) {
@@ -135,35 +146,48 @@ public class MainActivity extends Activity {
 			}
 		}
 	};
-	
+
 	public void showDialog(){
-		
+
 		CustomDialog.Builder customBuilder = new
-                CustomDialog.Builder(MainActivity.this);
-            customBuilder.setTitle("提示")
-                .setMessage("软件有新的版本哦~~~~快点来更新吧！")
-                .setNegativeButton("取消", 
-                		new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    	dialog.dismiss();
-                    	Message message = handler.obtainMessage();
-                    	message.what = DONE;
-                    	handler.sendMessage(message);
-                    }
-                })
-                .setPositiveButton("确定", 
-                        new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    	dialog.dismiss();
-                    	Message message = handler.obtainMessage();
-                    	message.what = WEBVIEW;
-                    	handler.sendMessage(message);
-                    }
-                });
-            dialog = customBuilder.create();
-            dialog.show();
+				CustomDialog.Builder(MainActivity.this);
+		customBuilder.setTitle("提示")
+		.setMessage("软件有新的版本哦~~~~快点来更新吧！")
+		.setNegativeButton("取消", 
+				new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				Message message = handler.obtainMessage();
+				message.what = DONE;
+				handler.sendMessage(message);
+			}
+		})
+		.setPositiveButton("确定", 
+				new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				Message message = handler.obtainMessage();
+				message.what = WEBVIEW;
+				handler.sendMessage(message);
+			}
+		});
+		dialog = customBuilder.create();
+		dialog.show();
 	}
 	private void goNext() {
 		this.finish();
+	}
+
+	public void done(){
+
+	}
+
+	public boolean isLogin(){
+		BmobUser bmobUser = BmobUser.getCurrentUser(this);
+		if(bmobUser != null){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }

@@ -1,25 +1,20 @@
 package com.calm.calm.ui;
 
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.ParserAdapter;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
 import com.calm.calm.R;
-import com.calm.calm.base.BaseActivity;
+import com.calm.calm.ui.login.LoginActivity;
 import com.calm.calm.util.SysConfig;
 
 public class WelcomeActivity extends Activity{

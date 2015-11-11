@@ -4,8 +4,9 @@
     android:id="@+id/id_menu"
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
-    android:background="@drawable/img_frame_background"
+    android:background="#000000"
     android:scrollbars="none"
+    tools:ignore="ResAuto"
     yy:rightPadding="150dp" >
 
     <LinearLayout
@@ -13,18 +14,68 @@
         android:layout_height="fill_parent"
         android:orientation="horizontal" >
 
-        <include layout="@layout/layout_menu" />
+        <include
+            android:id="@+id/ly_cbl"
+            layout="@layout/layout_menu" />
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/qq" >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical" >
 
-            <Button
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/main_fragment"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="toggleMenu"
-                android:text="切换菜单" />
+                android:layout_weight="15"
+                android:orientation="vertical" >
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="#000000"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="一"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="二"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="三"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_four"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="四"
+                    android:textColor="@color/white" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

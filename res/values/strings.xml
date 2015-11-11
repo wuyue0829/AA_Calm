@@ -12,5 +12,6 @@
     <string name="head_title">App名字</string>
     <string name="head_submit">确定</string>
     <string name="photo">头像</string>
+    <string name="set_password">设置密码</string>
 
 </resources>
