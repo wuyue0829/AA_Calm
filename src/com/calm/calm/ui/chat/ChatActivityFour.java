@@ -1,4 +1,4 @@
-package com.calm.calm.chat;
+package com.calm.calm.ui.chat;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.calm.calm.R;
 
-public class ChatActivityTwo extends Fragment{
+public class ChatActivityFour extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -16,7 +16,7 @@ public class ChatActivityTwo extends Fragment{
 		if (container == null) {
 			return null;
 		}
-		View view = inflater.inflate(R.layout.chat_one, container, false);
+		View view = inflater.inflate(R.layout.chat_three, container, false);
 		return view;
 	}
 	

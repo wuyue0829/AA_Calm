@@ -133,7 +133,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/ImageView01"
+        android:id="@+id/im_photo"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_above="@+id/linearLayout1"

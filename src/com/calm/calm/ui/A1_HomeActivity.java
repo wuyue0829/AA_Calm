@@ -3,19 +3,21 @@ package com.calm.calm.ui;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.calm.calm.R;
 import com.calm.calm.base.BaseFragmentActivity;
-import com.calm.calm.chat.ChatActivity;
-import com.calm.calm.chat.ChatActivityFour;
-import com.calm.calm.chat.ChatActivityThree;
-import com.calm.calm.chat.ChatActivityTwo;
 import com.calm.calm.ui.adapter.SlidingMenu;
+import com.calm.calm.ui.chat.ChatActivity;
+import com.calm.calm.ui.chat.ChatActivityFour;
+import com.calm.calm.ui.chat.ChatActivityThree;
+import com.calm.calm.ui.chat.ChatActivityTwo;
 
 public class A1_HomeActivity extends BaseFragmentActivity implements OnClickListener{
 
@@ -26,12 +28,13 @@ public class A1_HomeActivity extends BaseFragmentActivity implements OnClickList
 	private TextView two;
 	private TextView three;
 	private TextView four;
+	private int flag = 1;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView2Base(R.layout.home_activity);
-		this.setToolBarLeftButtonByString(R.string.photo);
+		this.setToolBarLeftButtonByString0(R.string.photo);
 		init();
 		changeFragment(1);
 	}
@@ -52,6 +55,13 @@ public class A1_HomeActivity extends BaseFragmentActivity implements OnClickList
 	@Override
 	public void leftButtonClick() {
 		// TODO Auto-generated method stub
+		if(flag == 1){
+			this.setToolBarLeftButtonByString0(R.string.base_return);
+			flag = 0;
+		}else{
+			this.setToolBarLeftButtonByString0(R.string.photo);
+			flag = 1;
+		}
 		mMenu.toggle();
 	}
 
@@ -75,7 +85,6 @@ public class A1_HomeActivity extends BaseFragmentActivity implements OnClickList
 			Toast.makeText(mContext, "4", 1).show();
 			changeFragment(4);
 			break;
-
 		default:
 			break;
 		}
@@ -86,15 +95,19 @@ public class A1_HomeActivity extends BaseFragmentActivity implements OnClickList
 		switch (tabId) {
 		case 1:
 			fragment = new ChatActivity();
+			this.setTitle("聊天");
 			break;
 		case 2:
 			fragment = new ChatActivityTwo();
+			this.setTitle("联系人");
 			break;
 		case 3:
 			fragment = new ChatActivityThree();
+			this.setTitle("朋友圈");
 			break;
 		case 4:
 			fragment = new ChatActivityFour();
+			this.setTitle("ok");
 			break;
 		}
 
@@ -104,4 +117,10 @@ public class A1_HomeActivity extends BaseFragmentActivity implements OnClickList
 		System.out.println("success");
 	}
 
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
 }

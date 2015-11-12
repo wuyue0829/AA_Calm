@@ -1,5 +1,6 @@
 package com.calm.calm.ui.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -154,14 +155,16 @@ public class SlidingMenu extends HorizontalScrollView
 	/**
 	 * ÇÐ»»²Ëµ¥×´Ì¬
 	 */
-	public void toggle()
+	public boolean toggle()
 	{
 		if (isOpen)
 		{
 			closeMenu();
+			return false;
 		} else
 		{
 			openMenu();
+			return true;
 		}
 	}
 
