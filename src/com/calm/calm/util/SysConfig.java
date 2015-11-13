@@ -50,7 +50,7 @@ public class SysConfig {
 	public void setSerAppVesion(int version){
 		config.edit().putInt("serversion", version).commit();
 	}
-
+	
 	//获取用户token
 	public String getToken(){
 		return config.getString("token", "");
