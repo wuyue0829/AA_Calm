@@ -3,6 +3,11 @@ package com.calm.calm.ui.login;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.calm.calm.R;
+import com.calm.calm.base.BaseActivity;
+import com.calm.calm.util.BaseUtil;
+import com.calm.calm.util.constant.ConfigConstant;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,15 +21,6 @@ import android.widget.Toast;
 import cn.bmob.sms.BmobSMS;
 import cn.bmob.sms.exception.BmobException;
 import cn.bmob.sms.listener.RequestSMSCodeListener;
-import cn.bmob.sms.listener.VerifySMSCodeListener;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.listener.SaveListener;
-
-import com.calm.calm.R;
-import com.calm.calm.base.BaseActivity;
-import com.calm.calm.ui.A1_HomeActivity;
-import com.calm.calm.util.BaseUtil;
-import com.calm.calm.util.constant.ConfigConstant;
 
 public class LoginActivity extends BaseActivity implements OnClickListener{
 
@@ -138,7 +134,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 	//使用bmob获取验证码
 	public void bmobSmsSend(String phoneNum){
 
-		BmobSMS.requestSMSCode(mContext, phoneNum, "AA助手",new RequestSMSCodeListener() {
+		BmobSMS.requestSMSCode(mContext, phoneNum, "111通讯录",new RequestSMSCodeListener() {
 			@Override
 			public void done(Integer smsId,BmobException ex) {
 				// TODO Auto-generated method stub
@@ -232,9 +228,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			switch (msg.what) {
 			case 30000:
 				isSuc1();
-				Toast.makeText(mContext, "登录完成", 1).show();
+				Toast.makeText(mContext, "手机号码已收进班长的通讯录", 1).show();
 				Intent intent = new Intent(mContext, SetNameActivity.class);
-				intent.putExtra("phoneNum", phone);
+				sysConfig.setCustomConfig(ConfigConstant.CONFIG__PHONE, et_phonenum.getText().toString().trim());
 				sysConfig.setCustomConfig(ConfigConstant.CONFIG__LOGIN, "1");
 				startActivity(intent);
 				LoginActivity.this.finish();				

@@ -1,12 +1,12 @@
 package com.calm.calm.ui.chat;
 
+import com.calm.calm.R;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.calm.calm.R;
 
 public class ChatActivityFour extends Fragment{
 	@Override

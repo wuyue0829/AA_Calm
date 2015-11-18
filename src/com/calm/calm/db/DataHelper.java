@@ -4,10 +4,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
-
+import com.calm.calm.entity.UserPhone;
 import com.calm.calm.entity.UsrCache;
 import com.calm.calm.entity.UsrInfo;
 import com.calm.calm.util.LogUtil;
@@ -16,9 +13,12 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
 public class DataHelper extends OrmLiteSqliteOpenHelper{
 
-	public static final String DATABASE_NAME = "yy";
+	public static final String DATABASE_NAME = "YY.db";
 	public static final int DATABASE_VERSION = 1;
 	
 	public static DataHelper staticDB;
@@ -33,15 +33,10 @@ public class DataHelper extends OrmLiteSqliteOpenHelper{
 		initDaoMaps();	
 	}
 	
-	public DataHelper(Context context, String databaseName,
-			CursorFactory factory, int databaseVersion) {
-		super(context, databaseName, factory, databaseVersion);
-		// TODO Auto-generated constructor stub
-	}
-	
 	public static DataHelper getDataHelp(Context context){
 		if(staticDB == null){
 			staticDB = new DataHelper(context);
+			System.out.println("datahelp是空的");
 		}
 		return staticDB;
 		
@@ -52,25 +47,27 @@ public class DataHelper extends OrmLiteSqliteOpenHelper{
 		return staticDB.getWritableDatabase();
 	}
 
-	
+	@SuppressWarnings("rawtypes")
 	private void initDaoMaps() {
 		// TODO Auto-generated method stub
 		daoMaps = new HashMap<String, Dao>();
 		daoMaps.put("usrCache", null);  //用户缓存表
 		daoMaps.put("usrInfo", null);  //用户信息表
+		daoMaps.put("userphone", null);
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db, ConnectionSource arg1) {
 		// TODO Auto-generated method stub
 		try {
-			LogUtil.e("见表", "success");
+			System.out.println("见表success");
 			TableUtils.createTable(arg1, UsrInfo.class);
-			TableUtils.clearTable(arg1, UsrCache.class);
+			TableUtils.createTable(arg1, UserPhone.class);
 			initData(db);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			LogUtil.e("见表", "失败");
+			System.out.println("见表faile");
 			e.printStackTrace();
 		}
 	}
@@ -106,6 +103,18 @@ public class DataHelper extends OrmLiteSqliteOpenHelper{
 		if (accountDao == null) {
 			try {
 				accountDao = getDao(UsrCache.class);
+			} catch (SQLException e) {
+			}
+		}
+		return accountDao;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Dao<UserPhone, Integer> getUserPhone(){
+		Dao<UserPhone, Integer> accountDao = daoMaps.get("usr_phone");
+		if (accountDao == null) {
+			try {
+				accountDao = getDao(UserPhone.class);
 			} catch (SQLException e) {
 			}
 		}

@@ -3,9 +3,9 @@ package com.calm.calm.net;
 import com.calm.calm.entity.AppVersionCode;
 import com.calm.calm.util.SysConfig;
 
+import android.content.Context;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.GetListener;
-import android.content.Context;
 
 public class InitNet {
 	

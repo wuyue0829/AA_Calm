@@ -1,5 +1,9 @@
 package com.calm.calm.ui;
 
+import com.calm.calm.R;
+import com.calm.calm.ui.login.LoginActivity;
+import com.calm.calm.util.SysConfig;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,10 +16,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
-
-import com.calm.calm.R;
-import com.calm.calm.ui.login.LoginActivity;
-import com.calm.calm.util.SysConfig;
 
 public class WelcomeActivity extends Activity{
 

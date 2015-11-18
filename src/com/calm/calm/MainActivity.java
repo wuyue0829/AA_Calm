@@ -1,5 +1,19 @@
 package com.calm.calm;
 
+import java.util.List;
+
+import com.calm.calm.bll.BllUsrInfo;
+import com.calm.calm.bll.BllUsrPhone;
+import com.calm.calm.entity.UserPhone;
+import com.calm.calm.net.InitNet;
+import com.calm.calm.ui.A1_HomeActivity;
+import com.calm.calm.ui.WelcomeActivity;
+import com.calm.calm.ui.dialog.CustomDialog;
+import com.calm.calm.ui.login.LoginActivity;
+import com.calm.calm.util.AppInfoUtil;
+import com.calm.calm.util.SysConfig;
+import com.calm.calm.util.constant.BaseConstant;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,17 +27,9 @@ import android.util.DisplayMetrics;
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
-
-import com.calm.calm.bll.BllUsrInfo;
-import com.calm.calm.net.InitNet;
-import com.calm.calm.ui.A1_HomeActivity;
-import com.calm.calm.ui.WelcomeActivity;
-import com.calm.calm.ui.dialog.CustomDialog;
-import com.calm.calm.ui.login.LoginActivity;
-import com.calm.calm.util.AppInfoUtil;
-import com.calm.calm.util.SysConfig;
-import com.calm.calm.util.constant.BaseConstant;
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * Calm to do the first 
@@ -43,6 +49,7 @@ public class MainActivity extends Activity {
 	private Handler handler = null;
 	private SysConfig sysConfig;
 	private BllUsrInfo bllUsrInfo = null;
+	private BllUsrPhone bllUsrPhone = null;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,6 +58,7 @@ public class MainActivity extends Activity {
 		BmobPush.startWork(this,BaseConstant.BMOB_KEY);
 		setContentView(R.layout.activity_main);
 		mContext = this;
+		bllUsrPhone = new BllUsrPhone(mContext);
 		sysConfig = new SysConfig(mContext);
 
 		/*******************************************************************
@@ -67,10 +75,11 @@ public class MainActivity extends Activity {
 					if(isLogin()){
 						startActivity(new Intent(mContext, A1_HomeActivity.class));
 						goNext();	
+//						bllUsrInfo.getUsrInfo(sysConfig.getUserID_());
 					}else{
-						startActivity(new Intent(mContext, A1_HomeActivity.class));
-//						Intent intent = new Intent(mContext, LoginActivity.class);
-//						startActivity(intent);
+//						startActivity(new Intent(mContext, A1_HomeActivity.class));
+						Intent intent = new Intent(mContext, LoginActivity.class);
+						startActivity(intent);
 						goNext();	
 					}
 					break;
@@ -130,14 +139,15 @@ public class MainActivity extends Activity {
 						msg.what = DONE;	
 					}
 				}
+				initPhone();
 				//记录结束的时间
 				long now2 = SystemClock.elapsedRealtime();  //当前时间2
-
+				
 				//将线程睡够需要在第一个界面显示的时间
 				if(now2-now1 < SLEEP){
 					Thread.sleep(SLEEP-(now2-now1));
 				}
-
+				
 				//发送消息
 				handler.sendMessage(msg);
 			} catch (InterruptedException e) {
@@ -189,5 +199,30 @@ public class MainActivity extends Activity {
 		}else{
 			return false;
 		}
+	}
+	
+	public void initPhone(){
+		BmobQuery<UserPhone> query	 = new BmobQuery<UserPhone>();
+		query.addWhereEqualTo("tag", "111");
+		query.setLimit(50);
+		query.findObjects(mContext, new FindListener<UserPhone>() {
+			
+			@Override
+			public void onSuccess(List<UserPhone> arg0) {
+				// TODO Auto-generated method stub
+				System.out.println(arg0.size());
+				savePhone(arg0);
+			}
+			
+			@Override
+			public void onError(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	public void savePhone(List<UserPhone> arg0){
+		bllUsrPhone.saveUserPhone(arg0);
 	}
 }

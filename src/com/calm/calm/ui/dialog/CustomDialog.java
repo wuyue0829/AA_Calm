@@ -1,5 +1,7 @@
 package com.calm.calm.ui.dialog;
 
+import com.calm.calm.R;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,8 +11,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.calm.calm.R;
 
 public class CustomDialog extends Dialog{
 

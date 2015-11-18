@@ -18,6 +18,20 @@ public class UsrInfoDao {
 		this.dao = dao;
 	}
 	
+	/** 新增用户信息
+	 * @param newResult
+	 */
+	public Boolean save(UsrInfo newTarget)
+	{
+		try {
+			dao.create(newTarget);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	/**
 	 * 根据用户id取得单个用户信息
 	 * @param userSysID

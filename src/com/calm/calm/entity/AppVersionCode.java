@@ -1,6 +1,5 @@
 package com.calm.calm.entity;
 
-import android.R.integer;
 import cn.bmob.v3.BmobObject;
 
 public class AppVersionCode extends BmobObject{

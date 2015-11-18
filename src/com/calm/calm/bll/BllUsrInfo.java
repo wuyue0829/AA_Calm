@@ -26,4 +26,8 @@ public class BllUsrInfo {
 	{
 		return this.usrInfoDao.getUsrInfo(userSysID);
 	}
+	
+	public void saveUsrInfo(UsrInfo info){
+		this.usrInfoDao.save(info);
+	}
 }

@@ -1,6 +1,9 @@
 package com.calm.calm.ui.adapter;
 
-import android.app.Activity;
+import com.calm.calm.R;
+import com.calm.calm.util.ScreenUtils;
+import com.nineoldandroids.view.ViewHelper;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -9,10 +12,6 @@ import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-
-import com.calm.calm.R;
-import com.calm.calm.util.ScreenUtils;
-import com.nineoldandroids.view.ViewHelper;
 
 public class SlidingMenu extends HorizontalScrollView
 {
