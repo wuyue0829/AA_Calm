@@ -1,7 +1,5 @@
 package com.calm.calm;
-
 import java.util.List;
-
 import com.calm.calm.bll.BllUsrInfo;
 import com.calm.calm.bll.BllUsrPhone;
 import com.calm.calm.entity.UserPhone;
@@ -13,6 +11,7 @@ import com.calm.calm.ui.login.LoginActivity;
 import com.calm.calm.util.AppInfoUtil;
 import com.calm.calm.util.SysConfig;
 import com.calm.calm.util.constant.BaseConstant;
+import com.squareup.okhttp.internal.spdy.FrameReader.Handler;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,7 +19,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;

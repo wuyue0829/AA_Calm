@@ -1,10 +1,12 @@
 package com.calm.calm.ui.login;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.calm.calm.R;
 import com.calm.calm.base.BaseActivity;
+import com.calm.calm.ui.A1_HomeActivity;
 import com.calm.calm.util.BaseUtil;
 import com.calm.calm.util.constant.ConfigConstant;
 
@@ -21,6 +23,11 @@ import android.widget.Toast;
 import cn.bmob.sms.BmobSMS;
 import cn.bmob.sms.exception.BmobException;
 import cn.bmob.sms.listener.RequestSMSCodeListener;
+import cn.bmob.sms.listener.VerifySMSCodeListener;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
 
 public class LoginActivity extends BaseActivity implements OnClickListener{
 
@@ -72,9 +79,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 					public void run() {
 						// TODO Auto-generated method stub
 						bmobCode();
-						
 					}
 				}).start();
+				checkHaveUser(phoneNum);
 			}
 			break;
 		default:
@@ -202,25 +209,20 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 	public void bmobCode(){
 		final String phone = et_phonenum.getText().toString().trim();
 		String phoneCode = et_phonecode.getText().toString().trim();
-		/*BmobSMS.verifySmsCode(this,phone, phoneCode, new VerifySMSCodeListener() {
+		BmobSMS.verifySmsCode(this,phone, phoneCode, new VerifySMSCodeListener() {
 
 			@Override
 			public void done(BmobException ex) {
 				// TODO Auto-generated method stub
 				if(ex==null){//短信验证码已验证成功
-					Message message = myhandler.obtainMessage();
-					message.what = 30000;
-					myhandler.sendMessage(message);
+					checkHaveUser(phoneNum);
 				}else{
 					Message message = myhandler.obtainMessage();
 					message.what = 40000;
 					myhandler.sendMessage(message);
 				}
 			}
-		});*/
-		Message message = myhandler.obtainMessage();
-		message.what = 30000;
-		myhandler.sendMessage(message);
+		});
 	}
 
 	private Handler myhandler = new Handler(){
@@ -229,9 +231,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			case 30000:
 				isSuc1();
 				Toast.makeText(mContext, "手机号码已收进班长的通讯录", 1).show();
-				Intent intent = new Intent(mContext, SetNameActivity.class);
+				Intent intent;
 				sysConfig.setCustomConfig(ConfigConstant.CONFIG__PHONE, et_phonenum.getText().toString().trim());
 				sysConfig.setCustomConfig(ConfigConstant.CONFIG__LOGIN, "1");
+				if("0".equals(sysConfig.getCustomConfig(ConfigConstant.CONFIG__IS_LOGIN, "0"))){
+					intent = new Intent(mContext, SetNameActivity.class);
+				}else{
+					intent = new Intent(mContext, A1_HomeActivity.class);
+				}
 				startActivity(intent);
 				LoginActivity.this.finish();				
 				break;
@@ -246,4 +253,30 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			}
 		};
 	};
+	
+	public boolean checkHaveUser(String phoneNum){
+		BmobQuery<BmobUser> query = new BmobQuery<BmobUser>();
+		query.addWhereEqualTo("mobilePhoneNumber", phoneNum);
+		query.findObjects(mContext, new FindListener<BmobUser>() {
+			@Override
+			public void onSuccess(List<BmobUser> arg0) {
+				// TODO Auto-generated method stub
+				sysConfig.setCustomConfig(ConfigConstant.CONFIG__IS_LOGIN, "1");
+				Message message = myhandler.obtainMessage();
+				message.what = 30000;
+				myhandler.sendMessage(message);
+				
+			}
+			
+			@Override
+			public void onError(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				sysConfig.setCustomConfig(ConfigConstant.CONFIG__IS_LOGIN, "0");
+				Message message = myhandler.obtainMessage();
+				message.what = 30000;
+				myhandler.sendMessage(message);
+			}
+		});
+		return false;
+	}
 }
